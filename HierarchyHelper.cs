@@ -68,5 +68,30 @@ public static class HierarchyHelper
  
         return targetTR.GetComponent<T>();
     }
+    /// <summary>
+    /// 根据组件找包含组件的子辈，只能取到子辈，不能取到孙辈
+    /// </summary>
+    /// <param name="tr"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static List<T> GetChildren<T>(Transform tr) where T : Component
+    {
+        List<T> typeArr = new List<T>();
+        
+        for (int i = 0; i < tr.childCount; i++)
+        {
+            T typeObj = tr.GetChild(i).GetComponent<T>();
+            if (typeObj == null) continue;
+            typeArr.Add(typeObj);
+
+        }
+        if (typeArr.Count != 0)
+        {
+            return typeArr; 
+        }
+
+        return null;
+
+    }
     
 }
